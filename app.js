@@ -25,7 +25,7 @@ mongoose
     console.log("DB connected failed :(", err);
   });
 
-//app listener setting
-app.listen(4000, () => {
-  console.log("server on 4000!");
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
