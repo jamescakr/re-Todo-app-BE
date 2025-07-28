@@ -4,12 +4,9 @@ const taskController = require("../controller/task.controller");
 const router = express.Router();
 
 //라우터의 경로를 정의하고, 특정 경로로 요청이 들어왔을때 어떻게 처리할지 알려주는 코드
-router.post("/", taskController.createTask);
-
+router.post("/", authController.authenticate, taskController.createTask);
 router.get("/", taskController.getTask);
-
 router.put("/:id", taskController.updateTask);
-
 router.delete("/:id", taskController.deleteTask);
 
 module.exports = router;

@@ -5,8 +5,9 @@ const taskController = {};
 //할일 추가하기 (CRUD 중 C에 해당)
 taskController.createTask = async (req, res) => {
   try {
-    const { task, isComplete } = req.body; //destructuring, req.body에서 각각의 값 추출
-    const newTask = new Task({ task, isComplete });
+    const { task, isComplete } = req.body;
+    const { userID } = req;
+    const newTask = new Task({ task, isComplete, author: userID });
     await newTask.save();
     res.status(200).json({ status: "success!", data: newTask });
   } catch (err) {
