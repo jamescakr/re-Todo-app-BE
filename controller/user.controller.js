@@ -7,6 +7,13 @@ const userController = {};
 userController.createUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({
+        status: "failed",
+        message: "이메일과 비밀번호를 모두 입력해주세요",
+      });
+    }
+
     const user = await User.findOne({ email });
     if (user) {
       throw new Error("user already exists");
@@ -24,6 +31,13 @@ userController.createUser = async (req, res) => {
 userController.loginWithEmail = async (req, res) => {
   try {
     const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({
+        status: "failed",
+        message: "이메일과 비밀번호를 모두 입력해주세요",
+      });
+    }
+
     const user = await User.findOne({ email }).select("-createdAt -updatedAt -__v");
     if (user) {
       const isMatch = bcryptjs.compareSync(password, user.password);
